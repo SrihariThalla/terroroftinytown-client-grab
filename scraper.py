@@ -61,17 +61,13 @@ def try_with_tracker(func, *args, **kwargs):
         try:
             return func(*args, **kwargs)
         except TrackerError as error:
-            sleep_time = 10 * try_count
-            sleep_time += random.randint(0, 90)
+            sleep_time = random.randint(0, 5)
 
             print('Error communicating with tracker: {0}.'.format(error))
             print('Trying again in {0} seconds.'.format(sleep_time))
             sys.stdout.flush()
 
             time.sleep(sleep_time)
-
-            if try_count > 5:
-                raise
 
 
 if __name__ == '__main__':
